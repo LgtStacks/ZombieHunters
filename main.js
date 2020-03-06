@@ -637,8 +637,8 @@ ASSET_MANAGER.downloadAll(function () {
 
     var gameEngine = new GameEngine();
 
-    agents.push(new CPM(gameEngine));
-    agentClasses.push(CPM);
+    agents.push(new GSM(gameEngine));
+    agentClasses.push(GSM);
 
     for (var i = 0; i < agents.length; i++) {
         circle = agents[i];

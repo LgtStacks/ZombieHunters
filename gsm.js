@@ -13,7 +13,6 @@ function GSM(game) {
     this.cooldown = 0;
     this.direction = { x: randomInt(1600) - 800, y: randomInt(1600) - 800 };
     Entity.call(this, game, this.radius + Math.random() * (800 - this.radius * 2), this.radius + Math.random() * (800 - this.radius * 2));
-
     this.velocity = { x: 0, y: 0 };
 };
 
@@ -34,11 +33,25 @@ GSM.prototype.constructor = GSM;
 // you may access a list of players from this.game.players
 
 GSM.prototype.selectAction = function () {
-
-    var action = { direction: { x: this.direction.x, y: this.direction.y }, throwRock: false, target: null };
+	this.visualRadius = 200;
+	var acceleration = 1000000;
+    var action = { direction: { x: 0, y: 0 }, throwRock: false, target: null };
     var closest = 1000;
+	var closestRock = 1000;
     var target = null;
-
+	var targetRock = null;
+	for (var i=0; i < this.game.rocks.length; i++) {
+		var ent = this.game.rocks[i];
+		if (this.collide({ x: ent.x, y: ent.y, radius: this.visualRadius })) {
+			var dist = distance(this, ent);
+			if (dist > this.radius + ent.radius + 2) {
+				var difX = (ent.x - this.x)/dist;
+				var difY = (ent.y - this.y)/dist;
+				action.direction.x += difX * acceleration / (dist * dist);
+				action.direction.y += difY * acceleration / (dist * dist);
+			}
+		}    
+	}
     for (var i = 0; i < this.game.zombies.length; i++) {
         var ent = this.game.zombies[i];
         var dist = distance(ent, this);
@@ -52,6 +65,7 @@ GSM.prototype.selectAction = function () {
         action.target = target;
         action.throwRock = true;
     }
+	console.log(action.direction);
     return action;
 };
 
