@@ -59,6 +59,12 @@ GSM.prototype.selectAction = function () {
             closest = dist;
             target = ent;
         }
+		if (this.collide({x: ent.x, y: ent.y, radius: this.visualRadius})) {
+			var difX = (ent.x - this.x) / dist;
+			var difY = (ent.y - this.y) / dist;
+			action.direction.x -= difX * acceleration / (dist * dist);
+			action.direction.y -= difY * acceleration / (dist * dist);
+		}
     }
 
     if (target) {
