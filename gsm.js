@@ -8,7 +8,7 @@ function GSM(game) {
     this.radius = 10;
     this.rocks = 0;
     this.kills = 0;
-    this.name = "Gobindroop Mann";
+    this.name = "Gobindroop Mann & Brian Huang";
     this.color = "White";
     this.cooldown = 0;
     this.direction = { x: randomInt(1600) - 800, y: randomInt(1600) - 800 };
