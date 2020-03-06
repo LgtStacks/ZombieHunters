@@ -44,7 +44,7 @@ GSM.prototype.selectAction = function () {
 	var targetRock = null;
 	for (var i=0; i < this.game.rocks.length; i++) {
 		var ent = this.game.rocks[i];
-		if (this.collide({ x: ent.x, y: ent.y, radius: this.visualRadius })) {
+		if (this.collide({ x: ent.x, y: ent.y, radius: this.visualRadius }) && this.rocks < 2) {
 			var dist = distance(this, ent);
 			if (dist > this.radius + ent.radius) {
 				var difX = (ent.x - this.x)/dist;
